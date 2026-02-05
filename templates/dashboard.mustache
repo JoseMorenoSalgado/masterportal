@@ -1,0 +1,94 @@
+<div class="mp-dashboard">
+  <section class="mp-left">
+    <div class="mp-hero">
+      <div>
+        <h1 class="mp-hero__title">Bienvenido, {{username}}</h1>
+        <div class="mp-hero__sub">Aquí tienes lo último del máster y tus accesos directos.</div>
+      </div>
+      <a class="mp-cta mp-hero__cta" href="{{resourcesurl}}">
+        {{#str}}exploreresources, local_masterportal{{/str}} <span aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    <div class="mp-sectionhead">
+      <div class="mp-sectionhead__title">{{#str}}quickaccess, local_masterportal{{/str}}</div>
+      <a class="mp-sectionhead__link" href="{{resourcesurl}}">{{#str}}viewall, local_masterportal{{/str}}</a>
+    </div>
+
+    <div class="mp-quickgrid mp-slider">
+      {{#quick}}
+        <a class="mp-quickcard" href="{{url}}">
+          {{#icon}}
+  <div class="mp-quick__thumb" aria-hidden="true">
+    <div class="mp-quick__icon">{{icon}}</div>
+  </div>
+{{/icon}}
+{{^icon}}
+  <div class="mp-quick__thumb" aria-hidden="true">
+    <div class="mp-quick__icon">📌</div>
+  </div>
+{{/icon}}
+          <div class="mp-quickcard__label">{{label}}</div>
+          {{#meta}}<div class="mp-quickcard__meta">{{meta}}</div>{{/meta}}
+        </a>
+      {{/quick}}
+    </div>
+
+    {{#showcourses}}
+    <div class="mp-sectionhead mp-mt">
+      <div class="mp-sectionhead__title">{{#str}}mycourses, local_masterportal{{/str}}</div>
+    </div>
+
+    <div class="mp-coursegrid mp-slider">
+      {{#courses}}
+        <a class="mp-coursecard" href="{{url}}">
+          <div class="mp-coursecard__thumb {{thumbclass}}" aria-hidden="true"></div>
+          <div class="mp-coursecard__title">{{name}}</div>
+          <div class="mp-coursecard__meta">{{shortname}}</div>
+        </a>
+      {{/courses}}
+    </div>
+    {{/showcourses}}
+
+    <div class="mp-sectionhead mp-mt">
+      <div class="mp-sectionhead__title">{{#str}}news, local_masterportal{{/str}}</div>
+    </div>
+
+    <div class="mp-newsbar">
+      <span class="mp-newsbar__pill">{{newsbar}}</span>
+      <a class="mp-newsbar__open" href="{{resourcesurl}}" title="Abrir">↗</a>
+    </div>
+  </section>
+
+  <aside class="mp-right">
+    <div class="mp-card">
+      <div class="mp-card__title">{{#str}}news, local_masterportal{{/str}}</div>
+      <div class="mp-card__body">
+        <ul class="mp-list">
+          {{#news}}
+            <li class="mp-list__item">
+              <div class="mp-list__dot" aria-hidden="true"></div>
+              <div class="mp-list__text">
+                <div class="mp-list__label">{{type}}</div>
+                <div class="mp-list__title">{{title}}</div>
+                <div class="mp-list__meta">{{date}}</div>
+              </div>
+            </li>
+          {{/news}}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mp-card mp-mt">
+      <div class="mp-card__title">{{#str}}calendar, local_masterportal{{/str}}</div>
+      <div class="mp-card__body">
+        <div class="mp-cal">
+          <div class="mp-cal__head">{{calmonth}}</div>
+          <div class="mp-cal__grid">
+            {{#caldays}}<div class="mp-cal__cell {{#active}}is-active{{/active}}">{{day}}</div>{{/caldays}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>

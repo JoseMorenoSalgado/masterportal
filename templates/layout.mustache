@@ -1,0 +1,58 @@
+<div class="mp-app">
+  <aside id="mp-side" class="mp-side" aria-label="Portal navigation">
+    <div class="mp-side__brand">
+      <div class="mp-logo"><div class="mp-logo__mark">D</div></div>
+      <div class="mp-side__name">{{brandname}}</div>
+    </div>
+
+    <nav class="mp-menu">
+      {{#menu}}
+        <a class="mp-menu__item {{#active}}is-active{{/active}}" href="{{url}}">
+          <span class="mp-menu__icon" aria-hidden="true">{{icon}}</span>
+          <span class="mp-menu__label">{{label}}</span>
+        </a>
+      {{/menu}}
+{{#isadmin}}
+<a class="mp-side__item" href="{{config.wwwroot}}/admin/search.php">
+  <span class="mp-ico">⚙️</span>
+  <span class="mp-side__label">Administración del sitio</span>
+</a>
+{{/isadmin}}
+</nav>
+  </aside>
+
+  <div class="mp-overlay" data-mp-overlay="1"></div>
+
+  <section class="mp-stage">
+    <header class="mp-top">
+      <button class="mp-burger" type="button" aria-label="Menú" aria-controls="mp-side" aria-expanded="false">☰</button>
+      <form class="mp-top__search" method="get" action="{{searchaction}}">
+        <span class="mp-top__searchicon" aria-hidden="true">🔍</span>
+        <input class="mp-top__searchinput" type="search" name="q" value="{{q}}" placeholder="{{searchplaceholder}}" aria-label="{{searchplaceholder}}">
+      </form>
+
+      <div class="mp-top__actions">
+        <a class="mp-top__icon" href="{{notificationurl}}" title="{{#str}}notifications, local_masterportal{{/str}}">🔔</a>
+        <a class="mp-top__icon" href="{{messageurl}}" title="{{#str}}chat, local_masterportal{{/str}}">💬</a>
+        <a class="mp-top__avatar" href="{{profileurl}}" title="{{username}}">
+          <img src="{{avatarurl}}" alt="{{username}}">
+        </a>
+      </div>
+
+      {{#suggestions.0}}
+      <div class="mp-suggest" aria-label="Sugerencias">
+        {{#suggestions}}
+          <a class="mp-suggest__item" href="{{url}}">
+            <div class="mp-suggest__title">{{name}}</div>
+            <div class="mp-suggest__meta">#{{modname}} · {{coursename}}</div>
+          </a>
+        {{/suggestions}}
+      </div>
+      {{/suggestions.0}}
+    </header>
+
+    <main class="mp-main">
+      {{{content}}}
+    </main>
+  </section>
+</div>

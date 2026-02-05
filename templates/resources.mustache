@@ -1,0 +1,130 @@
+<div class="mp-dashboard">
+  <section class="mp-left">
+    <div class="mp-hero">
+      <h1 class="mp-hero__title">Bienvenido, {{username}}</h1>
+      <p class="mp-hero__sub">Aquí tienes lo último del máster y tus accesos directos.</p>
+      <a class="mp-cta" href="{{resourcesurl}}">
+        <span class="mp-cta__text">{{#str}}exploreresources, local_masterportal{{/str}}</span>
+        <span class="mp-cta__arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    <div class="mp-sectionhead">
+      <h2 class="mp-h2">{{#str}}quickaccess, local_masterportal{{/str}}</h2>
+      <a class="mp-link" href="{{resourcesurl}}">{{#str}}viewall, local_masterportal{{/str}}</a>
+    </div>
+
+    <div class="mp-quick" data-mp-slider="1">
+      {{#quick}}
+        <a class="mp-qcard" href="{{url}}">
+          <div class="mp-qcard__icon"><i class="fa-solid {{icon}}" aria-hidden="true"></i></div>
+          <div class="mp-qcard__text">
+            <div class="mp-qcard__title">{{title}}</div>
+            {{#subtitle}}<div class="mp-qcard__meta">{{subtitle}}</div>{{/subtitle}}
+          </div>
+        </a>
+      {{/quick}}
+      {{^quick}}
+        <div class="mp-empty">{{#str}}nothingtodisplay, local_masterportal{{/str}}</div>
+      {{/quick}}
+    </div>
+
+    <div class="mp-resources-wrap">
+      <div class="mp-resources-header">
+        <h2 class="mp-h2">{{#str}}resources, local_masterportal{{/str}}</h2>
+        <div class="mp-searchbox">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="text" class="mp-searchbox__input" id="mpResourceSearch" placeholder="{{#str}}searchall, local_masterportal{{/str}}" />
+        </div>
+      </div>
+
+      <div class="mp-tabs">
+        {{#tabs}}
+          <a class="mp-tab {{#active}}is-active{{/active}}" href="{{{config.wwwroot}}}/local/masterportal/resources.php?tab={{key}}">{{label}}</a>
+        {{/tabs}}
+      </div>
+
+      <div class="mp-grid" id="mpResourceGrid">
+        {{#cards}}
+          <a class="mp-cardtile" href="{{{url}}}" data-title="{{title}}" data-section="{{section}}">
+            <div class="mp-cardtile__media">
+              {{#hasimg}}
+                <img src="{{img}}" alt="" loading="lazy" />
+              {{/hasimg}}
+              {{^hasimg}}
+                <div class="mp-cardtile__icon">
+                  <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+                </div>
+              {{/hasimg}}
+            </div>
+            <div class="mp-cardtile__body">
+              <div class="mp-cardtile__title">{{title}}</div>
+              <div class="mp-cardtile__meta">{{sectionname}}</div>
+            </div>
+          </a>
+        {{/cards}}
+
+        {{^cards}}
+          <div class="mp-empty">{{#str}}nothingtodisplay, local_masterportal{{/str}}</div>
+        {{/cards}}
+      </div>
+    </div>
+  </section>
+
+  <aside class="mp-right">
+    <div class="mp-panel mp-panel--search">
+      <div class="mp-panel__title">Buscar actividades</div>
+      <form method="get" action="{{resourcesurl}}" class="mp-mini-search">
+        <input type="search" name="q" value="{{q}}" placeholder="{{#str}}searchall, local_masterportal{{/str}}">
+        <button type="submit" aria-label="{{#str}}search, local_masterportal{{/str}}">🔎</button>
+      </form>
+    </div>
+
+    <div class="mp-panel">
+      <div class="mp-panel__title">{{#str}}news, local_masterportal{{/str}}</div>
+      {{#news}}
+        <div class="mp-newsitem">
+          <div class="mp-bullet"></div>
+          <div class="mp-newsitem__body">
+            <div class="mp-newsitem__title">{{title}}</div>
+            <div class="mp-newsitem__meta">{{date}}</div>
+          </div>
+        </div>
+      {{/news}}
+      {{^news}}
+        <div class="mp-muted">Sin noticias por ahora.</div>
+      {{/news}}
+    </div>
+
+    <div class="mp-panel">
+      <div class="mp-panel__title">{{#str}}calendar, local_masterportal{{/str}}</div>
+      <div class="mp-cal">
+        <div class="mp-cal__head">
+          <div class="mp-cal__month">{{calmonth}}</div>
+        </div>
+        <div class="mp-cal__grid">
+          {{#caldays}}
+            <div class="mp-cal__day {{#active}}is-active{{/active}}">{{day}}</div>
+          {{/caldays}}
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+  const input = document.getElementById('mpResourceSearch');
+  const grid = document.getElementById('mpResourceGrid');
+  if (!input || !grid) return;
+
+  input.addEventListener('input', function(){
+    const q = (this.value || '').toLowerCase().trim();
+    const items = grid.querySelectorAll('.mp-cardtile');
+    items.forEach((el)=>{
+      const t = (el.getAttribute('data-title') || '').toLowerCase();
+      el.style.display = (!q || t.includes(q)) ? '' : 'none';
+    });
+  });
+})();
+</script>

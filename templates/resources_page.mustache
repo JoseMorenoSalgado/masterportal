@@ -1,0 +1,81 @@
+<div class="mp-shell mp-shell--resources">
+  <aside class="mp-side">
+    <div class="mp-brand">
+      <div class="mp-brand__logo">D</div>
+      <div class="mp-brand__name">{{brand}}</div>
+    </div>
+
+    <nav class="mp-nav">
+      {{#menu}}
+        <a class="mp-nav__item {{#active}}is-active{{/active}}" href="{{{url}}}">
+          <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+          <span>{{label}}</span>
+        </a>
+      {{/menu}}
+    </nav>
+  </aside>
+
+  <main class="mp-content">
+    <div class="mp-resources-top">
+      <div class="mp-resources-top__search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" id="mpResourceSearch" placeholder="Buscar casos, videos, clases, artículos..." />
+      </div>
+      <div class="mp-resources-top__icons" aria-hidden="true">
+        <i class="fa-regular fa-bell"></i>
+        <i class="fa-regular fa-comment-dots"></i>
+        <div class="mp-avatar">U</div>
+      </div>
+    </div>
+
+    <h1 class="mp-page-title">{{#str}}resources, local_masterportal{{/str}}</h1>
+
+    <div class="mp-tabs mp-tabs--resources">
+      {{#tabs}}
+        <a class="mp-tab {{#active}}is-active{{/active}}" href="{{{config.wwwroot}}}/local/masterportal/resources.php?tab={{key}}">{{label}}</a>
+      {{/tabs}}
+    </div>
+
+    <div class="mp-grid mp-grid--resources" id="mpResourceGrid">
+      {{#cards}}
+        <a class="mp-cardtile" href="{{{url}}}" data-title="{{title}}">
+          <div class="mp-cardtile__media">
+            {{#hasimg}}
+              <img src="{{img}}" alt="" loading="lazy" />
+            {{/hasimg}}
+            {{^hasimg}}
+              <div class="mp-cardtile__icon">
+                <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+              </div>
+            {{/hasimg}}
+          </div>
+          <div class="mp-cardtile__body">
+            <div class="mp-cardtile__title">{{title}}</div>
+            <div class="mp-cardtile__meta">{{sectionname}}</div>
+          </div>
+        </a>
+      {{/cards}}
+
+      {{^cards}}
+        <div class="mp-empty">{{#str}}nothingtodisplay, local_masterportal{{/str}}</div>
+      {{/cards}}
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  const input = document.getElementById('mpResourceSearch');
+  const grid = document.getElementById('mpResourceGrid');
+  if (!input || !grid) return;
+
+  input.addEventListener('input', function(){
+    const q = (this.value || '').toLowerCase().trim();
+    const items = grid.querySelectorAll('.mp-cardtile');
+    items.forEach((el)=>{
+      const t = (el.getAttribute('data-title') || '').toLowerCase();
+      el.style.display = (!q || t.includes(q)) ? '' : 'none';
+    });
+  });
+})();
+</script>
